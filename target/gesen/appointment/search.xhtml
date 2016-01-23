@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value='#{appointmentBean.page}'/>
+		<f:event type="preRenderView" listener='#{appointmentBean.paginate}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Appointment entities"/>
+
+	<ui:define name="header">
+		Appointment
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Appointment entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="appointmentBeanExampleTitle" value="Title:"/>
+						<h:panelGroup>
+							<h:inputText id="appointmentBeanExampleTitle" value="#{appointmentBean.example.title}"/>
+							<h:message for="appointmentBeanExampleTitle" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="appointmentBeanExampleWorks" value="Works:"/>
+						<h:panelGroup>
+							<h:inputText id="appointmentBeanExampleWorks" value="#{appointmentBean.example.works}"/>
+							<h:message for="appointmentBeanExampleWorks" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="appointmentBeanExampleResults" value="Results:"/>
+						<h:panelGroup>
+							<h:inputText id="appointmentBeanExampleResults" value="#{appointmentBean.example.results}"/>
+							<h:message for="appointmentBeanExampleResults" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="appointmentBeanExampleManagement" value="Management:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{managementBean.converter}" id="appointmentBeanExampleManagement" value="#{appointmentBean.example.management}">
+								<f:selectItem/>
+								<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{managementBean.all}" var="_item"/>
+							</h:selectOneMenu>
+							<h:message for="appointmentBeanExampleManagement" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action='#{appointmentBean.search}' styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action='#{appointmentBean.create}' styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="appointmentBeanPageItems" styleClass="data-table" value="#{appointmentBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Appointment Date"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemAppointmentDate" value="#{_item.appointmentDate}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Title"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemTitle" value="#{_item.title}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Works"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemWorks" value="#{_item.works}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Results"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemResults" value="#{_item.results}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Created At"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreatedAt" value="#{_item.createdAt}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value='#{appointmentBean}'/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

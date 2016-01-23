@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value='#{filiereBean.page}'/>
+		<f:event type="preRenderView" listener='#{filiereBean.paginate}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Filiere entities"/>
+
+	<ui:define name="header">
+		Filiere
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Filiere entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="filiereBeanExampleName" value="Name:"/>
+						<h:panelGroup>
+							<h:inputText id="filiereBeanExampleName" value="#{filiereBean.example.name}"/>
+							<h:message for="filiereBeanExampleName" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="filiereBeanExampleDepartment" value="Department:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{departmentBean.converter}" id="filiereBeanExampleDepartment" value="#{filiereBean.example.department}">
+								<f:selectItem/>
+								<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{departmentBean.all}" var="_item"/>
+							</h:selectOneMenu>
+							<h:message for="filiereBeanExampleDepartment" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action='#{filiereBean.search}' styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action='#{filiereBean.create}' styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="filiereBeanPageItems" styleClass="data-table" value="#{filiereBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name"/>
+					</f:facet>
+					<h:link outcome="/filiere/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemName" value="#{_item.name}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Created At"/>
+					</f:facet>
+					<h:link outcome="/filiere/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreatedAt" value="#{_item.createdAt}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Updated At"/>
+					</f:facet>
+					<h:link outcome="/filiere/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemUpdatedAt" value="#{_item.updatedAt}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Department"/>
+					</f:facet>
+					<h:link outcome="/filiere/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="forgeviewdisplayitemDepartment" value="#{forgeview:display(_item.department)}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value='#{filiereBean}'/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{managementBean.id}'/>
+		<f:event type="preRenderView" listener='#{managementBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Management"/>
+
+	<ui:define name="header">
+		Management
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Management
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="managementBeanManagementTopic" value="Topic:"/>
+			<h:outputText id="managementBeanManagementTopic" value="#{managementBean.management.topic}"/>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementNote" value="Note:"/>
+			<h:outputText id="managementBeanManagementNote" value="#{managementBean.management.note}"/>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementObservation" value="Observation:"/>
+			<h:outputText id="managementBeanManagementObservation" value="#{managementBean.management.observation}"/>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementCreatedAt" value="Created At:"/>
+			<h:outputText id="managementBeanManagementCreatedAt" value="#{managementBean.management.createdAt}">
+				<f:convertDateTime type="date"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementUpdatedAt" value="Updated At:"/>
+			<h:outputText id="managementBeanManagementUpdatedAt" value="#{managementBean.management.updatedAt}">
+				<f:convertDateTime type="date"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementStatus" value="Status:"/>
+			<h:outputText id="managementBeanManagementStatus" value="#{managementBean.management.status}"/>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementType" value="Type:"/>
+			<h:outputText id="managementBeanManagementType" value="#{managementBean.management.type}"/>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementAppointments" value="Appointments:"/>
+			<h:dataTable id="managementBeanManagementAppointments" styleClass="data-table" value="#{forgeview:asList(managementBean.management.appointments)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Appointment Date"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemAppointmentDate" value="#{_item.appointmentDate}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Title"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemTitle" value="#{_item.title}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Works"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemWorks" value="#{_item.works}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Results"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemResults" value="#{_item.results}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Created At"/>
+					</f:facet>
+					<h:link outcome="/appointment/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemCreatedAt" value="#{_item.createdAt}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel for="managementBeanManagementStudent" value="Student:"/>
+			<h:link id="managementBeanManagementStudent" outcome="/student/view" rendered="#{!empty managementBean.management.student}" value="#{managementBean.management.student}">
+				<f:param name="id" value="#{managementBean.management.student.id}"/>
+			</h:link>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>
