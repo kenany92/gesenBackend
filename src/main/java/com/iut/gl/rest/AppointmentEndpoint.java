@@ -26,7 +26,7 @@ import com.iut.gl.entity.Appointment;
  * 
  */
 @Stateless
-@Path("/appointments")
+@Path("/api/appointments")
 public class AppointmentEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;

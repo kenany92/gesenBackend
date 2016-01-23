@@ -26,7 +26,7 @@ import com.iut.gl.entity.Filiere;
  * 
  */
 @Stateless
-@Path("/filieres")
+@Path("/api/filieres")
 public class FiliereEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;

@@ -26,7 +26,7 @@ import com.iut.gl.entity.AcademicYear;
  * 
  */
 @Stateless
-@Path("/academicyears")
+@Path("/api/academicyears")
 public class AcademicYearEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;

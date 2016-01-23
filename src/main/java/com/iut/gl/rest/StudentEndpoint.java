@@ -26,7 +26,7 @@ import com.iut.gl.entity.Student;
  * 
  */
 @Stateless
-@Path("/students")
+@Path("/api/students")
 public class StudentEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;

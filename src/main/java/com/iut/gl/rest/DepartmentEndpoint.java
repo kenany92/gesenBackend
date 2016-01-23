@@ -26,7 +26,7 @@ import com.iut.gl.entity.Department;
  * 
  */
 @Stateless
-@Path("/departments")
+@Path("/api/departments")
 public class DepartmentEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;

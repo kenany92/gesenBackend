@@ -26,7 +26,7 @@ import com.iut.gl.entity.Management;
  * 
  */
 @Stateless
-@Path("/managements")
+@Path("/api/managements")
 public class ManagementEndpoint {
 	@PersistenceContext(unitName = "gesen-persistence-unit")
 	private EntityManager em;
